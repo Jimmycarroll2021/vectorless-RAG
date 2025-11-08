@@ -15,6 +15,16 @@ try:
 except LookupError:
     nltk.download('punkt', quiet=True)
 
+# NLTK 3.9+ uses the separate 'punkt_tab' resource for language tables
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    try:
+        nltk.download('punkt_tab', quiet=True)
+    except Exception:
+        # Fallback: ignore if unavailable; tests may still pass if punkt is present
+        pass
+
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:

@@ -4,27 +4,29 @@ A high-accuracy Retrieval-Augmented Generation (RAG) system that uses traditiona
 
 ## Overview
 
-This vectorless RAG system leverages classical IR methods combined with modern NLP techniques to achieve superior accuracy without the computational overhead of embedding models:
+This vectorless RAG system leverages classical IR methods combined with modern NLP techniques to achieve strong accuracy without the computational overhead of embedding models:
 
-- **BM25 Retrieval**: Industry-standard probabilistic ranking function
-- **Query Expansion**: Enhances queries with synonyms and related terms
-- **Document Reranking**: Cross-encoder based reranking for improved precision
-- **TF-IDF Fallback**: Additional retrieval method for better recall
-- **Hybrid Scoring**: Combines multiple signals for optimal ranking
+- BM25 retrieval: probabilistic ranking
+- Query expansion: adds synonyms and related terms
+- Document reranking: heuristic or optional cross-encoder
+- TF-IDF fallback: alternative signal for recall
+- Hybrid scoring: combine BM25 and TF-IDF
 
 ## Key Features
 
-- ✅ **No Vector Database Required**: Uses inverted index for fast retrieval
-- ✅ **Interpretable Results**: Clear scoring and ranking explanations
-- ✅ **Low Latency**: Fast keyword-based search
-- ✅ **Easy Integration**: Simple API for RAG pipelines
-- ✅ **Configurable**: Tune parameters for your specific use case
-- ✅ **Scalable**: Efficient indexing and retrieval for large corpora
+- No vector database required: uses inverted index
+- Interpretable results: clear signals and scoring
+- Low latency: fast keyword-based search
+- Easy integration: simple API
+- Configurable: tune behavior via YAML
+- Scalable: efficient indexing and retrieval
 
 ## Installation
 
 ```bash
 pip install -r requirements.txt
+# For local development/tests
+pip install -e .
 ```
 
 ## Quick Start
@@ -55,19 +57,18 @@ for result in results:
 ## Architecture
 
 ```
-Query → Preprocessing → Query Expansion → BM25 Retrieval → Reranking → Results
-                                              ↓
-                                        TF-IDF Fallback
+Query -> Preprocessing -> Query Expansion -> BM25 Retrieval -> Reranking -> Results
+                                      \-> TF-IDF Fallback
 ```
 
 ## Performance
 
 Our vectorless approach offers several advantages:
 
-- **Accuracy**: Achieves competitive or better results than vector-based systems on keyword-heavy queries
-- **Speed**: 10-100x faster retrieval compared to dense vector search
-- **Memory**: Significantly lower memory footprint
-- **Transparency**: Easy to debug and understand why documents were retrieved
+- Accuracy: competitive or better for keyword-heavy queries
+- Speed: often 10–100x faster than dense vector search
+- Memory: lower footprint than dense embeddings
+- Transparency: easy to inspect why documents score
 
 ## Configuration
 
@@ -119,22 +120,36 @@ results = rag.retrieve(
 
 ## Use Cases
 
-- **FAQ Systems**: Exact keyword matching for customer support
-- **Legal Document Search**: Precise terminology matching
-- **Code Search**: Finding specific functions and classes
-- **Medical Records**: Accurate matching of medical terms
-- **Knowledge Bases**: Internal documentation search
+- FAQ systems
+- Legal document search
+- Code search
+- Medical records
+- Knowledge bases
 
 ## Comparison with Vector-based RAG
 
 | Feature | Vectorless RAG | Vector-based RAG |
-|---------|---------------|------------------|
-| Exact keyword matching | ✅ Excellent | ⚠️ May miss exact terms |
-| Semantic similarity | ⚠️ Limited | ✅ Excellent |
-| Speed | ✅ Very fast | ⚠️ Slower |
-| Memory usage | ✅ Low | ⚠️ High |
-| Interpretability | ✅ High | ⚠️ Low |
-| Setup complexity | ✅ Simple | ⚠️ Complex |
+|---------|----------------|------------------|
+| Exact keyword matching | Excellent | May miss exact terms |
+| Semantic similarity | Limited | Excellent |
+| Speed | Very fast | Slower |
+| Memory usage | Low | High |
+| Interpretability | High | Lower |
+| Setup complexity | Simple | Complex |
+
+## Troubleshooting
+
+- NLTK tokenizers in v3.9+ require `punkt_tab` in addition to `punkt`. The library auto-downloads missing resources on first use. If running in a restricted environment, preinstall with:
+
+  ```python
+  import nltk
+  nltk.download('punkt')
+  nltk.download('punkt_tab')
+  nltk.download('stopwords')
+  nltk.download('wordnet')
+  ```
+
+- Tests expect the package importable as `vectorless_rag`. Install in editable mode with `pip install -e .`.
 
 ## Contributing
 
