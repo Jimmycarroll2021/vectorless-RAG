@@ -1,0 +1,40 @@
+# Vectorless RAG System Configuration
+
+retrieval:
+  # Primary retrieval method: 'bm25', 'tfidf', or 'hybrid'
+  method: bm25
+
+  # BM25 parameters
+  k1: 1.5  # Term frequency saturation (1.2-2.0)
+  b: 0.75  # Length normalization (0.0-1.0)
+
+query_expansion:
+  # Enable query expansion with synonyms
+  enabled: true
+
+  # Maximum number of expansion terms per query term
+  max_expansions: 3
+
+reranking:
+  # Enable reranking of retrieved documents
+  enabled: true
+
+  # Reranking boost factors
+  exact_match_boost: 2.0  # Boost for exact query matches
+  title_boost: 1.5        # Boost for title matches
+  recency_boost: 1.2      # Boost for recent documents
+  length_penalty: 0.1     # Penalty for very long/short docs
+
+preprocessing:
+  # Text preprocessing options
+  lowercase: true
+  remove_stopwords: true
+  remove_punctuation: true
+  stemming: false
+  lemmatization: true
+  min_token_length: 2
+
+hybrid:
+  # Weights for hybrid retrieval (bm25 + tfidf)
+  bm25_weight: 0.7
+  tfidf_weight: 0.3
