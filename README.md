@@ -54,6 +54,17 @@ for result in results:
     print(f"Score: {result['score']:.3f} - {result['text']}")
 ```
 
+## CLI
+
+Install in editable mode, then use the CLI to index and query:
+
+```bash
+# From the repo root after `pip install -e .`
+vectorless-rag index-and-query --docs examples/data --query "natural language" --top-k 5
+```
+
+`--docs` accepts either a directory of `.txt` files or a JSON/JSONL file with documents of the form `{ "id": str, "text": str, "title"?: str }`.
+
 ## Architecture
 
 ```

@@ -31,7 +31,7 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "nltk>=3.8.1",
+        "nltk>=3.8,<4",
         "pyyaml>=6.0.1",
     ],
     extras_require={
@@ -45,5 +45,10 @@ setup(
         "advanced": [
             "sentence-transformers>=2.2.2",
         ],
+    },
+    entry_points={
+        "console_scripts": [
+            "vectorless-rag=vectorless_rag.cli:main",
+        ]
     },
 )

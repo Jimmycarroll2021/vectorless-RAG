@@ -1,5 +1,6 @@
 # Core dependencies
-nltk>=3.8.1
+# Pin NLTK to <4 for stability across tokenizer resource changes
+nltk>=3.8,<4
 pyyaml>=6.0.1
 
 # Optional: For advanced reranking (cross-encoder models)
