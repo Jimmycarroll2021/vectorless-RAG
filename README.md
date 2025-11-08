@@ -65,6 +65,10 @@ vectorless-rag index-and-query --docs examples/data --query "natural language" -
 
 `--docs` accepts either a directory of `.txt` files or a JSON/JSONL file with documents of the form `{ "id": str, "text": str, "title"?: str }`.
 
+## Notebook
+
+- See `examples/vectorless_rag_demo.ipynb` for an interactive walkthrough using the sample files in `examples/data/`.
+
 ## Architecture
 
 ```
